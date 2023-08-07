@@ -1,1 +1,41 @@
+def calculate_cooling_load(area, num_occupants, building_type, t_outdoor, t_indoor):
 
+    u_value = 30 
+
+    q_conduction = u_value * area * (t_outdoor - t_indoor)
+
+    if building_type == "residential":
+        cooling_load = 100 * num_occupants
+    elif building_type == "commercial":
+        cooling_load = 150 * num_occupants
+    else:
+        print("Invalid building type. Please enter 'residential' or 'commercial'.")
+        return
+
+    total_cooling_load = q_conduction + cooling_load
+
+    return total_cooling_load
+
+
+def get_user_input():
+    area = float(input("Enter the area of the building in square meters: "))
+    num_occupants = int(input("Enter the number of occupants in the building: "))
+    building_type = input("Enter the type of building (residential or commercial): ").lower()
+    t_outdoor = float(input("Enter the outdoor temperature in Celsius: "))
+    t_indoor = float(input("Enter the indoor desired temperature in Celsius: "))
+
+    return area, num_occupants, building_type, t_outdoor, t_indoor
+
+
+def main():
+    print("Cooling Load Calculator for a Building")
+    print("=====================================")
+
+    area, num_occupants, building_type, t_outdoor, t_indoor = get_user_input()
+
+    cooling_load = calculate_cooling_load(area, num_occupants, building_type, t_outdoor, t_indoor)
+    print(f"\nEstimated Cooling Load: {cooling_load:.2f} W")
+
+
+if __name__ == "__main__":
+    main()
